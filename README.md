@@ -1,7 +1,7 @@
 # 2048 - Game
 
 
-> **a Project for FoE- ASU Course CSE141**
+> **a Project for FoE- ASU Course CSE141 2023**
 
 ---
 
