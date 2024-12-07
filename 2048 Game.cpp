@@ -3,6 +3,7 @@
 
     Name: Marwan Haitham Mahmoud
     ID: 23P0286
+    Course Name: Introduction to Computer Programming
     Course Code: CSE141
 
     Description:
