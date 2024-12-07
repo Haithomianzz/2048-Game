@@ -1,0 +1,3 @@
+E:/College/Freshman/Semester 1/Intro to Computer Programming/Project/2048-Game/cmake-build-debug/CMakeFiles/2048_Game.dir
+E:/College/Freshman/Semester 1/Intro to Computer Programming/Project/2048-Game/cmake-build-debug/CMakeFiles/edit_cache.dir
+E:/College/Freshman/Semester 1/Intro to Computer Programming/Project/2048-Game/cmake-build-debug/CMakeFiles/rebuild_cache.dir
