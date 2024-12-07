@@ -1,9 +1,15 @@
-#include <iostream>
-#include <iomanip>
-#include <fstream>
-#include <conio.h> // Library for _getch function
-using namespace std;
-// _getsch Takes character Pressed without having to press enter and converts into its ASCII Code and returns the ASCII Code Value
+/*
+    Date: 01/12/2023
+
+    Name: Marwan Haitham Mahmoud
+    ID: 23P0286
+    Course Code: CSE141
+
+    Description:
+    - This program implements the 2048 game in C++ with customizable board sizes,
+      dynamic scoring, leaderboard functionality, and robust move validation.
+    - High scores are saved to and read from a file for persistence.
+*/
 /* Reference
 Color Codes: (used for background and font color)
 0 = Black
@@ -33,6 +39,12 @@ Down Arrow >> 80
 N >> 78
 n >> 110
 */
+// _getsch Takes character Pressed without having to press enter and converts into its ASCII Code and returns the ASCII Code Value
+#include <iostream>
+#include <iomanip>
+#include <fstream>
+#include <conio.h> // Library for _getch function
+using namespace std;
 struct Game {
     int Board[8][8], BoardSize, Score; // The 2D Array Holding All Values (Default 8x8 but the functions only work and print the size user chooses)
     int ScoreDigits, HighScoreDigits; // Score Variables // digit Counters started at 1 digit (0)
@@ -68,7 +80,7 @@ int main() {
         ReadScoresFromFile();
         Loaded = true;
     }
-    int x;
+
     system("cls");
     system("color 0f");
     cout << "-------------------------------------------------" << endl;
@@ -84,7 +96,7 @@ int main() {
     cout << "-------------------------------------------------" << endl;
     int exitloop = 1;
     while (exitloop == 1) {
-        x = _getch();
+        int x = _getch();
         switch (x) {
         case 78:        case 110:
             StartGame(); // Calls the function to start the Game
@@ -130,13 +142,13 @@ void StartGame() {
     system("CLS");
     system("color af");
     cout << endl << endl << endl << endl << endl << endl << endl << endl << endl << setw(33) << "Choose Board Size" << endl << setw(37) << "Pick a number from 4 to 8" << endl; // endlines to center the message
-    int x = 0;
-    while ((x > 56) || (x < 52)) { // Forces the user to press a key from 4 to 8 by looping untill the ascii value is between 52(4) and 56(8)
-        x = _getch();
+    int key = 0;
+    while ((key > 56) || (key < 52)) { // Forces the user to press a key from 4 to 8 by looping untill the ascii value is between 52(4) and 56(8)
+        key = _getch();
     }
-    CurrentGame.BoardSize = x - 48; // lowest case 4 pressed ascii code = 52 so board size = 52-48 = 4 and highest case 8 pressed ascii = 56, 56-48 = 8
+    CurrentGame.BoardSize = key - 48; // lowest case 4 pressed ascii code = 52 so board size = 52-48 = 4 and highest case 8 pressed ascii = 56, 56-48 = 8
     system("color f0"); // Makes the console White Background (f) and black text (0) (hexadecimal colors)
-    srand(time(0)); // New random seed
+    srand(time(nullptr)); // New random seed
     CurrentGame.Score = 0; // Resets Score
     for (int i = 0; i < CurrentGame.BoardSize; i++) { // Passes through each row
         for (int j = 0; j < CurrentGame.BoardSize; j++) { // Passes through each collumn
@@ -179,10 +191,8 @@ void Leaderboard() {
     for (int j = 0; j < PlayerID; j++) {
         for (int i = 0; i < PlayerID; i++)
             if (Players[i].Highscore < Players[i + 1].Highscore) {
-                int temp1;
-                string temp2;
-                temp1 = Players[i].Highscore;
-                temp2 = Players[i].name;
+                int temp1 = Players[i].Highscore;
+                string temp2 = Players[i].name;
                 Players[i].Highscore = Players[i + 1].Highscore;
                 Players[i].name = Players[i + 1].name;
                 Players[i + 1].Highscore = temp1;
@@ -191,10 +201,10 @@ void Leaderboard() {
     }
     for (int i = 0; i <= PlayerID; i++)
         cout << setw(16) << Players[i].name << setw(8) << Players[i].Highscore << endl;
-    int ExitKey; // Variable to store ASCII value of key pressed
+     // Variable to store ASCII value of key pressed
     cout << endl << endl << "ESC To Exit" << endl << "N For New Game" << endl << "C for Clear"; // Prints End Message and Score
     while (true) { // Force the User to Press ESC or N or n
-        ExitKey = _getch(); // _getch Takes character Pressed and converts into its ASCII Code and returns the ASCII Code Value
+        int ExitKey = _getch(); // _getch Takes character Pressed and converts into its ASCII Code and returns the ASCII Code Value
         if ((ExitKey == 78) || (ExitKey == 110)|| (ExitKey == 27)) // Small n or capital N pressed or escape
             main(); // Goes to main Menu
         if (ExitKey == 67 || ExitKey == 99) {
@@ -497,9 +507,8 @@ void GameOver() {
 }
 void GenerateNumber() {
     if (CurrentGame.EmptySquares != 0) { // Checks if there is an empty square before generating another to escape infinite loop of searching for new square
-        int x, y;
-        x = rand() % CurrentGame.BoardSize; // Random x from 0 to (CurrentGame.BoardSize -1)
-        y = rand() % CurrentGame.BoardSize; // Random y from 0 to (CurrentGame.BoardSize -1)
+        int x = rand() % CurrentGame.BoardSize; // Random x from 0 to (CurrentGame.BoardSize -1)
+        int y = rand() % CurrentGame.BoardSize; // Random y from 0 to (CurrentGame.BoardSize -1)
         if (CurrentGame.Board[x][y] != 0) { // Checks if the random position in array[x][y] is empty or not
             while (CurrentGame.Board[x][y] != 0) { // Loops untill Program finds an empty Space
                 x = rand() % CurrentGame.BoardSize; // Generates new x
